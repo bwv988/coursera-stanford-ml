@@ -1,2 +1,3 @@
 # coursera-stanford-ml
-Coursera Stanford Machine Learning Course Repo
+
+My solutions to the Coursera Stanford Machine Learning Course.
