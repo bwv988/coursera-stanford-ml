@@ -40,6 +40,21 @@ error_val = zeros(length(lambda_vec), 1);
 %
 
 
+for i = 1:length(lambda_vec)
+  % Select lambda.
+  lambda = lambda_vec(i);
+  
+  % Learn regression parameters.
+  theta = trainLinearReg(X, y, lambda);
+  
+  % Calculate the training error with the learned thetas.
+  error_train(i) = linearRegCostFunction(X, y, theta, 0);
+  
+  % Calculate the CV error with the learned thetas.
+  error_val(i) = linearRegCostFunction(Xval, yval, theta, 0);
+end;
+%
+
 
 
 

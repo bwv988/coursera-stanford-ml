@@ -53,11 +53,20 @@ error_val   = zeros(m, 1);
 
 % ---------------------- Sample Solution ----------------------
 
-
-% stuff
-
-
-
+% Calculate learning curve.
+for i = 1:m
+  X_train =  X(1:i, :);
+  y_train = y(1:i);
+  
+  % Learn the theta parameters.
+  [theta] = trainLinearReg(X_train, y_train, lambda);
+  
+  % Calculate the training error with the learned thetas.
+  error_train(i) = linearRegCostFunction(X_train, y_train, theta, 0);
+  
+  % Calculate the CV error with the learned thetas.
+  error_val(i) = linearRegCostFunction(Xval, yval, theta, 0);
+end;
 
 % -------------------------------------------------------------
 
