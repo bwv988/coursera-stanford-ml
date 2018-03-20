@@ -24,8 +24,35 @@ sigma = 0.3;
 %
 
 
+vals = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
+nparam = size(vals, 2);
+min_error = 1e9;
 
+% Try all combinations of values.
+for i = 1:nparam
+  C = vals(i);
+  
+  for j = 1:nparam
+    sigma = vals(j);
+    
+    % Train model on test data.
+    model = svmTrain(X, y, C, @(x1, x2) gaussianKernel(x1, x2, sigma));
+    
+    % Predict on validation data.
+    predictions = svmPredict(model, Xval);
+    
+    % Calculate prediction error on validataion data.
+    error = mean(double(predictions ~= yval));
+    
+    if (error < min_error)
+      C_final = C;
+      sigma_final = sigma;
+      min_error = error;
+    end
+end
 
+C = C_final;
+sigma = sigma_final;
 
 
 
