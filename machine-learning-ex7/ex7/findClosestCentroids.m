@@ -27,12 +27,17 @@ m = size(X, 1)
 for i = 1:m
   minJ = 1e9;
   for k = 1:K
-    D = X(:, i) - centroids(k) 
-    J = norm(D).^2
+    D = X(i, :) - centroids(k, :);
+    J = norm(D).^2;
     
     if J < minJ
-      idx(i) = 
-    
+      minJ = J;
+      pos_k = k;
+      
+   end
+   idx(i) = pos_k;
+end
+
 
 
 

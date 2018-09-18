@@ -26,8 +26,14 @@ centroids = zeros(K, n);
 % Note: You can use a for-loop over the centroids to compute this.
 %
 
+% Find set of samples X assigned to centroid k
 
+% For each centroid.
 
+for i = 1:K
+  % Count how many training examples are in cluster i.
+  
+end
 
 
 
