@@ -28,13 +28,16 @@ centroids = zeros(K, n);
 
 % Find set of samples X assigned to centroid k
 
-% For each centroid.
+count = zeros(K, 1);
+sums = zeros(K, n);
 
-for i = 1:K
-  % Count how many training examples are in cluster i.
-  
+for i = 1:m
+  c = idx(i);
+  count(c) = count(c) + 1;
+  sums(c, :) = sums(c, :) + X(i, :);  
 end
 
+centroids = sums ./ count;
 
 
 
