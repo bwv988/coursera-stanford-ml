@@ -7,6 +7,10 @@ function [J, grad] = cofiCostFunc(params, Y, R, num_users, num_movies, ...
 %
 
 % Unfold the U and W matrices from params
+
+% For debugging:
+% params = [X(:) ; Theta(:)];
+
 X = reshape(params(1:num_movies*num_features), num_movies, num_features);
 Theta = reshape(params(num_movies*num_features+1:end), ...
                 num_users, num_features);
@@ -16,6 +20,7 @@ Theta = reshape(params(num_movies*num_features+1:end), ...
 J = 0;
 X_grad = zeros(size(X));
 Theta_grad = zeros(size(Theta));
+
 
 % ====================== YOUR CODE HERE ======================
 % Instructions: Compute the cost function and gradient for collaborative
@@ -40,10 +45,20 @@ Theta_grad = zeros(size(Theta));
 %                     partial derivatives w.r.t. to each element of Theta
 %
 
+% Code snippet to test multiplication & summation.
 
+% A = randi(10, 5, 3)
+% B = randi(10, 3, 5)
+% C = randi([0, 1], 5, 5)
+% sum(sum((A * B) .* C))
+% Or can use new syntax, as shown below.
 
+inner = (X * Theta' - Y) .* R;
 
+J = sum(((inner) .^2), 'all') * 0.5 + (lambda / 2) .* sum(Theta .^2, 'all') + (lambda / 2) .* sum(X .^ 2, 'all');
 
+X_grad = inner * Theta + lambda .* X;
+Theta_grad = inner' * X + lambda .* Theta ;
 
 
 
